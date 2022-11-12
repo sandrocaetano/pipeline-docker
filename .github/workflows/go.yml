@@ -34,6 +34,12 @@ jobs:
   build:
     needs: test
     runs-on: ${{ matrix.os }}
+    env:
+      HOST: localhost
+      PORT: 5432
+      USER: root
+      PASSWORD: root
+      DBNAME: root
     strategy:
       matrix:
         os: ['ubuntu-latest', 'ubuntu-18.04']

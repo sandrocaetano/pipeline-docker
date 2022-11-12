@@ -35,11 +35,11 @@ jobs:
     needs: test
     runs-on: ${{ matrix.os }}
     env:
-      HOST: localhost
-      PORT: 5432
-      USER: root
-      PASSWORD: root
-      DBNAME: root
+      HOST: ${{ secrets.HOST }}
+      PORT: ${{ secrets.PORT }}
+      USER: ${{ secrets.USER }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      DBNAME: ${{ secrets.DBNAME }}
     strategy:
       matrix:
         os: ['ubuntu-latest', 'ubuntu-18.04']
@@ -47,3 +47,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build
       run: go build -v main.go
+
+  docker:
+    needs: build
+    uses: ./.github/workflows/Docker.yml
+    secrets: inherit
